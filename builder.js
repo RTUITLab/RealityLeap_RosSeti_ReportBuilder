@@ -24,15 +24,13 @@ switch (reportType) {
         const taskId = urlParams.get(TASK_ID);
         database.ref(`inspection_tasks/${taskId}`).once("value").then(function(snapshot) {
             let task = snapshot.val();
-            console.log(task.executor.last_name);
 
             const table = createTable();
             for (let i = 0; i < 2; i++) {
                 const row = createRow();
                 if (i === 0) {
                     for (let j = 0; j < HEADERS_TASK.length; j++) {
-                        const cell = createCell().html(HEADERS_TASK[j]).css("background", "lightgreen");
-                        row.append(cell);
+                        row.append(createHeaderCell().html(HEADERS_TASK[j]));
                     }
                 } else {
                     row.append(createCell().html(task.place.name));
@@ -46,24 +44,28 @@ switch (reportType) {
         });
         break;
     case TYPE_RESULT :
-        const resultId = urlParams.get(TASK_ID);
+        const resultId = urlParams.get(RESULT_ID);
         database.ref(`inspection_results/${resultId}`).once("value").then(function(snapshot) {
-            let task = snapshot.val();
-            console.log(task.executor.last_name);
+            let result = snapshot.val();
+            let defects = result.defects;
 
             const table = createTable();
-            for (let i = 0; i < 2; i++) {
+            table.append(
+                createRow().append(
+                    createCell().html("<a src='google.com'>hello</a>")
+                )
+            );
+
+            for (let i = -1; i < defects.length; i++) {
                 const row = createRow();
-                if (i === 0) {
-                    for (let j = 0; j < HEADERS_TASK.length; j++) {
-                        const cell = createCell().html(HEADERS_TASK[j]).css("background", "lightgreen");
-                        row.append(cell);
+                if (i === -1) {
+                    for (let j = 0; j < HEADERS_RESULT.length; j++) {
+                        row.append(createHeaderCell().html(HEADERS_RESULT[j]));
                     }
                 } else {
-                    row.append(createCell().html(task.place.name));
-                    row.append(createCell().html(task.safety_event));
-                    row.append(createCell().html(employeeToString(task.creator)));
-                    row.append(createCell().html(employeeToString(task.executor)));
+                    row.append(createCell().html(defects[i].location));
+                    row.append(createCell().html(defects[i].equipment_type));
+                    row.append(createCell().html(defects[i].description.text));
                 }
                 table.append(row);
             }

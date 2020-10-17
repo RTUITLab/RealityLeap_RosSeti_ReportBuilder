@@ -1,6 +1,15 @@
 .main-table, .main-table-row, .main-table-cell {
     border: 1px solid black;
+    border-spacing: 0px;
 }
-.main-table-row, .main-table-cell {
+
+.main-table-header-cell {
+    background: dodgerblue;
+    color: white;
+    border: 1px solid black;
+    border-spacing: 0px;
+}
+
+.main-table-row, .main-table-cell, .main-table-header-cell {
     padding: 16px;
 }
