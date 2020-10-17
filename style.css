@@ -1,0 +1,6 @@
+.main-table, .main-table-row, .main-table-cell {
+    border: 1px solid black;
+}
+.main-table-row, .main-table-cell {
+    padding: 16px;
+}
