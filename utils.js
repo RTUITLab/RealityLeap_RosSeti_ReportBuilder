@@ -25,6 +25,7 @@ const createTable      = () => $('<table>').addClass('main-table');
 const createRow        = () => $('<tr>'   ).addClass('main-table-row');
 const createCell       = () => $('<td>'   ).addClass('main-table-cell');
 const createHeaderCell = () => $('<td>'   ).addClass('main-table-header-cell');
+const createSingleCell = (colspan) => $(`<td colspan="${colspan}">`).addClass('main-table-cell');
 const employeeToString = (employee) =>
     employee.middle_name + " " +
     employee.first_name[0] + ". " +

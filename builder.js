@@ -50,11 +50,11 @@ switch (reportType) {
             let defects = result.defects;
 
             const table = createTable();
-            table.append(
-                createRow().append(
-                    createCell().html("<a src='google.com'>hello</a>")
-                )
-            );
+            table.append(createSingleCell(3).html(
+                `<div align='center'><b>ЛИСТОК ОСМОТРА ОБЪЕКТА</b></div><br>` +
+                `<div align='center'>${result.inspection_task.place.name}</div><br>` +
+                `<div align='center'>Вид обхода : Осмотр всей ВЛ электромонтерами.</div>`
+            ));
 
             for (let i = -1; i < defects.length; i++) {
                 const row = createRow();
