@@ -26,6 +26,12 @@ switch (reportType) {
             let task = snapshot.val();
 
             const table = createTable();
+
+            table.append(createSingleCell(HEADERS_TASK.length).html(
+                `<div align='center'><b>РАСПОРЯЖЕНИЕ №${task.id}</b></div><br>` +
+                `<div align='center'>для работы в электроустановках</div>`
+            ));
+
             for (let i = 0; i < 2; i++) {
                 const row = createRow();
                 if (i === 0) {
@@ -50,7 +56,8 @@ switch (reportType) {
             let defects = result.defects;
 
             const table = createTable();
-            table.append(createSingleCell(3).html(
+
+            table.append(createSingleCell(HEADERS_RESULT.length).html(
                 `<div align='center'><b>ЛИСТОК ОСМОТРА ОБЪЕКТА</b></div><br>` +
                 `<div align='center'>${result.inspection_task.place.name}</div><br>` +
                 `<div align='center'>Вид обхода : Осмотр всей ВЛ электромонтерами.</div>`
@@ -69,6 +76,15 @@ switch (reportType) {
                 }
                 table.append(row);
             }
+
+            table.append(createSingleCell(HEADERS_RESULT.length).html(
+                `<div align='left'><b>Осмотр произведен: </b>${timestampToString(result.finish_time)}` + TAB +
+                `<u>${employeeToFullname(result.inspection_task.executor)} / ${result.inspection_task.executor.hash}</u></div><br>` +
+                `<div align='left'><b>Принял мастер: </b>${timestampToString(result.approve_time)}` + TAB +
+                `<u>${employeeToFullname(result.inspection_task.creator)} / ${result.inspection_task.creator.hash}</u></div>`
+
+            ));
+
             $('#table_holder').append(table);
         });
         break;
